@@ -7,15 +7,29 @@ const elementoCor = document.getElementById("cor");
 elementoCor.addEventListener("input", (e) => {
     let corNova = e.target.value;
 
+    localStorage.setItem("primaryColor", corNova);
+
+
     document.documentElement.style.setProperty("--primary-color", corNova);
 });
 
 document.addEventListener("DOMContentLoaded", () =>
 {
-    const rootStyles = window.getComputedStyle(document.documentElement);
+   if (localStorage.getItem("primaryColor")){
+       elementoCor.value = localStorage.getItem("primaryColor");
 
-    const primaryColor = rootStyles.getPropertyValue("--primary-color").trim();
+       document.documentElement.style.setProperty
+       ("--primary-color", elementoCor.value);
+   }else {
 
-    elementoCor.value = primaryColor;
 
+       const rootStyles = window.getComputedStyle(document.documentElement);
+
+       const primaryColor = rootStyles.getPropertyValue("--primary-color").trim();
+
+
+       elementoCor.value = primaryColor;
+
+
+   }
 });
